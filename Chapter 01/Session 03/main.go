@@ -31,6 +31,10 @@ func menu(sentence string) {
 }
 
 func counter(sentence string) {
+	fmt.Println("This is your last sentence that you made: ")
+	fmt.Println(sentence)
+	fmt.Println()
+	
 	countA := strings.Count(sentence, "a")
 	countB := strings.Count(sentence, "b")
 	countC := strings.Count(sentence, "c")
@@ -59,17 +63,6 @@ func counter(sentence string) {
 	countZ := strings.Count(sentence, "z")
 	countSpace := strings.Count(sentence, " ")
 
-	// Print using Multi Array
-	arrayMulti := [][]interface{}{
-		{" ", countSpace}, {"A", countA}, {"B", countB}, {"C", countC}, {"D", countD}, {"E", countE},
-		{"F", countF}, {"G", countG}, {"H", countH}, {"I", countI}, {"J", countJ}, {"K", countK},
-		{"L", countL}, {"M", countM}, {"N", countN}, {"O", countO}, {"P", countP}, {"Q", countQ},
-		{"R", countR}, {"S", countS}, {"T", countT}, {"U", countU}, {"V", countV}, {"W", countW},
-		{"X", countX}, {"Y", countY}, {"Z", countZ},
-	}
-
-	printerMulti(arrayMulti)
-
 	// Print using Single Array
 	arrayInt := []int{
 		countSpace, countA, countB, countC, countD, countE, countF, countG, countH, countI, countJ,
@@ -82,11 +75,20 @@ func counter(sentence string) {
 		"S", "T", "U", "V", "W", "X", "Y", "Z",
 	}
 
+	printNotNullValue(arrayString, arrayInt)
 	printSingle(arrayString, arrayInt)
 
-	fmt.Println("This is your last sentence that you made: ")
-	fmt.Println(sentence)
-	fmt.Println()
+	// Print using Multi Array
+	arrayMulti := [][]interface{}{
+		{" ", countSpace}, {"A", countA}, {"B", countB}, {"C", countC}, {"D", countD}, {"E", countE},
+		{"F", countF}, {"G", countG}, {"H", countH}, {"I", countI}, {"J", countJ}, {"K", countK},
+		{"L", countL}, {"M", countM}, {"N", countN}, {"O", countO}, {"P", countP}, {"Q", countQ},
+		{"R", countR}, {"S", countS}, {"T", countT}, {"U", countU}, {"V", countV}, {"W", countW},
+		{"X", countX}, {"Y", countY}, {"Z", countZ},
+	}
+
+	printerMulti(arrayMulti)
+
 	fmt.Println("Continue counting with more sentence [Y/N]")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
@@ -130,6 +132,28 @@ func printSingle(arrayString []string, arrayInt []int) {
 			fmt.Printf("%v:%v", arrayString[i], arrayInt[i])
 		} else {
 			fmt.Printf("%v:%v ", arrayString[i], arrayInt[i])
+		}
+	}
+	fmt.Printf("\n\n")
+}
+
+func printNotNullValue(arrayString []string, arrayInt []int) {
+	var lenght int
+	if len(arrayInt) == len(arrayString) {
+		lenght = len(arrayInt)
+	} else {
+		log.Fatal("Error")
+	}
+
+	fmt.Println("PRINT USING SINGLE ARRAY WITH VALUE IS NOT NULL")
+	for i := 0; i < lenght; i++ {
+		if arrayInt[i] != 0 { 
+			if i == (lenght - 1) {
+				fmt.Printf("%v:%v", arrayString[i], arrayInt[i])
+			} else {
+				fmt.Printf("%v:%v ", arrayString[i], arrayInt[i])
+			}
+
 		}
 	}
 	fmt.Printf("\n\n")
