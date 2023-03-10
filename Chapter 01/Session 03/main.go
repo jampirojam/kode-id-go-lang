@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -34,60 +35,21 @@ func counter(sentence string) {
 	fmt.Println("This is your last sentence that you made: ")
 	fmt.Println(sentence)
 	fmt.Println()
-	
-	countA := strings.Count(sentence, "a")
-	countB := strings.Count(sentence, "b")
-	countC := strings.Count(sentence, "c")
-	countD := strings.Count(sentence, "d")
-	countE := strings.Count(sentence, "e")
-	countF := strings.Count(sentence, "f")
-	countG := strings.Count(sentence, "g")
-	countH := strings.Count(sentence, "h")
-	countI := strings.Count(sentence, "i")
-	countJ := strings.Count(sentence, "j")
-	countK := strings.Count(sentence, "k")
-	countL := strings.Count(sentence, "l")
-	countM := strings.Count(sentence, "m")
-	countN := strings.Count(sentence, "n")
-	countO := strings.Count(sentence, "o")
-	countP := strings.Count(sentence, "p")
-	countQ := strings.Count(sentence, "q")
-	countR := strings.Count(sentence, "r")
-	countS := strings.Count(sentence, "s")
-	countT := strings.Count(sentence, "t")
-	countU := strings.Count(sentence, "u")
-	countV := strings.Count(sentence, "v")
-	countW := strings.Count(sentence, "w")
-	countX := strings.Count(sentence, "x")
-	countY := strings.Count(sentence, "y")
-	countZ := strings.Count(sentence, "z")
-	countSpace := strings.Count(sentence, " ")
-
-	// Print using Single Array
-	arrayInt := []int{
-		countSpace, countA, countB, countC, countD, countE, countF, countG, countH, countI, countJ,
-		countK, countL, countM, countN, countO, countP, countQ, countR, countS, countT, countU,
-		countV, countW, countX, countY, countZ,
-	}
 
 	arrayString := []string{
 		" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
 		"S", "T", "U", "V", "W", "X", "Y", "Z",
 	}
 
-	printNotNullValue(arrayString, arrayInt)
-	printSingle(arrayString, arrayInt)
+	lenght := len(arrayString)
 
-	// Print using Multi Array
-	arrayMulti := [][]interface{}{
-		{" ", countSpace}, {"A", countA}, {"B", countB}, {"C", countC}, {"D", countD}, {"E", countE},
-		{"F", countF}, {"G", countG}, {"H", countH}, {"I", countI}, {"J", countJ}, {"K", countK},
-		{"L", countL}, {"M", countM}, {"N", countN}, {"O", countO}, {"P", countP}, {"Q", countQ},
-		{"R", countR}, {"S", countS}, {"T", countT}, {"U", countU}, {"V", countV}, {"W", countW},
-		{"X", countX}, {"Y", countY}, {"Z", countZ},
+	arrayInt := make([]int, lenght)
+
+	for i := 0; i < lenght; i++ {
+		arrayInt[i] = strings.Count(sentence, strings.ToLower(arrayString[i]))
 	}
 
-	printerMulti(arrayMulti)
+	printer(arrayString, arrayInt)
 
 	fmt.Println("Continue counting with more sentence [Y/N]")
 	scanner := bufio.NewScanner(os.Stdin)
@@ -103,22 +65,7 @@ func counter(sentence string) {
 	}
 }
 
-func printerMulti(arrayMulti [][]interface{}) {
-	var i, j int
-	fmt.Println("PRINT USING MULTI ARRAY")
-	for i = 0; i < len(arrayMulti); i++ {
-		for j = 0; j < len(arrayMulti[0]); j++ {
-			if j%2 == 0 {
-				fmt.Printf("%v:", arrayMulti[i][j])
-			} else {
-				fmt.Printf("%v ", arrayMulti[i][j])
-			}
-		}
-	}
-	fmt.Printf("\n\n")
-}
-
-func printSingle(arrayString []string, arrayInt []int) {
+func printer(arrayString []string, arrayInt []int) {
 	var lenght int
 	if len(arrayInt) == len(arrayString) {
 		lenght = len(arrayInt)
@@ -126,35 +73,16 @@ func printSingle(arrayString []string, arrayInt []int) {
 		log.Fatal("Error")
 	}
 
-	fmt.Println("PRINT USING SINGLE ARRAY")
-	for i := 0; i < lenght; i++ {
-		if i == (lenght - 1) {
-			fmt.Printf("%v:%v", arrayString[i], arrayInt[i])
-		} else {
-			fmt.Printf("%v:%v ", arrayString[i], arrayInt[i])
-		}
-	}
-	fmt.Printf("\n\n")
-}
-
-func printNotNullValue(arrayString []string, arrayInt []int) {
-	var lenght int
-	if len(arrayInt) == len(arrayString) {
-		lenght = len(arrayInt)
-	} else {
-		log.Fatal("Error")
-	}
-
-	fmt.Println("PRINT USING SINGLE ARRAY WITH VALUE IS NOT NULL")
+	finalArray := []string{}
+	var output string
 	for i := 0; i < lenght; i++ {
 		if arrayInt[i] != 0 { 
-			if i == (lenght - 1) {
-				fmt.Printf("%v:%v", arrayString[i], arrayInt[i])
-			} else {
-				fmt.Printf("%v:%v ", arrayString[i], arrayInt[i])
-			}
-
+			number := arrayInt[i]
+			finalNumber := strconv.Itoa(number)
+			output = arrayString[i] + ":" + finalNumber
+			finalArray = append(finalArray, output)
 		}
 	}
-	fmt.Printf("\n\n")
+
+	fmt.Printf("map%v\n", finalArray)
 }

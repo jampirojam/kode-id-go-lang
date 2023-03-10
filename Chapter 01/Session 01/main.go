@@ -9,7 +9,10 @@ import (
 func main() {
 	// Print Integer and it data type
 	i := 21
-	fmt.Printf("%d \n%T \n%% \n\n", i /* For numbers */, i /* For data types */)
+	fmt.Printf("%d \n%T \n\n", i /* For numbers */, i /* For data types */)
+
+	// Print special character
+	fmt.Printf("%% \n\n")
 
 	// Print boolean value
 	j := true
@@ -26,12 +29,12 @@ func main() {
 
 	// Print final result after convert Integer value to Hexadecimal
 	var base16 int64 = 15
-	valueBas16 := strconv.FormatInt(base16, 16)
-	fmt.Printf("%s or %s \n\n", valueBas16, strings.ToUpper(valueBas16))
+	valueBase16 := strconv.FormatInt(base16, 16)
+	fmt.Printf("%s or %s \n\n", valueBase16, strings.ToUpper(valueBase16))
 
 	base16 = 3859
-	valueBas16 = strconv.FormatInt(base16, 16)
-	fmt.Printf("%s or %s \n\n", valueBas16, strings.ToUpper(valueBas16))
+	valueBase16 = strconv.FormatInt(base16, 16)
+	fmt.Printf("%s or %s \n\n", valueBase16, strings.ToUpper(valueBase16))
 
 	// Print index value of an unicode
 	unicode = 'Я'
