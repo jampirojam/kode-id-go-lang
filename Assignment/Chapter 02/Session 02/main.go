@@ -1,9 +1,9 @@
 package main
 
 import (
-	app "ojam-test/second-session/app"
+	"ojam-test/c2/s2/app"
 )
 
 func main() {
-	app.Boot
+	app.Boot()
 }
