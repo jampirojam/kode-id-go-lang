@@ -1,0 +1,823 @@
+definitions:
+  request.CommentRequest:
+    properties:
+      message:
+        type: string
+      photo_id:
+        type: integer
+    required:
+    - message
+    - photo_id
+    type: object
+  request.PhotoRequest:
+    properties:
+      caption:
+        type: string
+      title:
+        type: string
+    required:
+    - title
+    type: object
+  request.SocialMediaRequest:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  request.UserLoginRequest:
+    properties:
+      password:
+        type: string
+      user_name:
+        type: string
+    required:
+    - password
+    - user_name
+    type: object
+  request.UserRequest:
+    properties:
+      age:
+        maximum: 80
+        minimum: 8
+        type: integer
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        maxLength: 20
+        minLength: 6
+        type: string
+      user_name:
+        maxLength: 25
+        minLength: 4
+        type: string
+    required:
+    - age
+    - email
+    - name
+    - password
+    - user_name
+    type: object
+  response.CommentResponse:
+    properties:
+      created_at:
+        type: string
+      deleted:
+        type: boolean
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      photo_id:
+        type: integer
+      updated_at:
+        type: string
+      url:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  response.ErrorResponse:
+    properties:
+      error: {}
+    type: object
+  response.PhotoCommentResponse:
+    properties:
+      id:
+        type: integer
+      message:
+        type: string
+      url:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  response.PhotoResponse:
+    properties:
+      caption:
+        type: string
+      comments:
+        items:
+          $ref: '#/definitions/response.PhotoCommentResponse'
+        type: array
+      created_at:
+        type: string
+      deleted:
+        type: boolean
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+      url:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  response.SocialMediaResponse:
+    properties:
+      created_at:
+        type: string
+      deleted:
+        type: boolean
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+      url:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  response.UserLoginResponse:
+    properties:
+      access_token:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  response.UserResponse:
+    properties:
+      age:
+        type: integer
+      created_at:
+        type: string
+      deleted:
+        type: boolean
+      deleted_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      updated_at:
+        type: string
+      user_name:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This API services is used for M-Gram Platform
+  title: M-Gram Api Client
+  version: "1.0"
+paths:
+  /v1/comment/:
+    get:
+      consumes:
+      - application/json
+      description: get all comment
+      parameters:
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.CommentResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: get all
+      tags:
+      - comment
+    post:
+      consumes:
+      - application/json
+      description: add new comment
+      parameters:
+      - description: comment request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CommentRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.CommentResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: add new comment
+      tags:
+      - comment
+  /v1/comment/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete comment by id
+      parameters:
+      - description: comment_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.CommentResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: delete comment
+      tags:
+      - comment
+    get:
+      consumes:
+      - application/json
+      description: get comment by id
+      parameters:
+      - description: comment_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.CommentResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: get comment
+      tags:
+      - comment
+    put:
+      consumes:
+      - application/json
+      description: update comment by id
+      parameters:
+      - description: comment_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: comment request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CommentRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.CommentResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: update comment
+      tags:
+      - comment
+  /v1/photo/:
+    get:
+      consumes:
+      - application/json
+      description: get all photo
+      parameters:
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.PhotoResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: get all
+      tags:
+      - photo
+    post:
+      consumes:
+      - application/json
+      description: add new photo
+      parameters:
+      - description: photo request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.PhotoRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.PhotoResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: add new photo
+      tags:
+      - photo
+  /v1/photo/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete photo by id
+      parameters:
+      - description: photo_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.PhotoResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: delete photo
+      tags:
+      - photo
+    get:
+      consumes:
+      - application/json
+      description: get photo by id
+      parameters:
+      - description: photo_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.PhotoResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: get photo
+      tags:
+      - photo
+    put:
+      consumes:
+      - application/json
+      description: update photo by id
+      parameters:
+      - description: photo_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: photo request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.PhotoRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.PhotoResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: update photo
+      tags:
+      - photo
+  /v1/social-media/:
+    get:
+      consumes:
+      - application/json
+      description: get all social media
+      parameters:
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.SocialMediaResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: get all
+      tags:
+      - social media
+    post:
+      consumes:
+      - application/json
+      description: add new social media
+      parameters:
+      - description: social media request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.SocialMediaRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.SocialMediaResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: add new social media
+      tags:
+      - social media
+  /v1/social-media/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete social media by id
+      parameters:
+      - description: social_media_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.SocialMediaResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: delete social media
+      tags:
+      - social media
+    get:
+      consumes:
+      - application/json
+      description: get social media by id
+      parameters:
+      - description: social_media_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.SocialMediaResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: get social media
+      tags:
+      - social media
+    put:
+      consumes:
+      - application/json
+      description: update social media by id
+      parameters:
+      - description: social_media_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: social media request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.SocialMediaRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.SocialMediaResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: update social media
+      tags:
+      - social media
+  /v1/user/:
+    post:
+      consumes:
+      - application/json
+      description: regist new user
+      parameters:
+      - description: user request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.UserResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: regist new user
+      tags:
+      - user
+  /v1/user/login:
+    post:
+      consumes:
+      - application/json
+      description: regist new user
+      parameters:
+      - description: user request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.UserLoginResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: login
+      tags:
+      - user
+swagger: "2.0"
