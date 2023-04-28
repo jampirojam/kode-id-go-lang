@@ -1,0 +1,387 @@
+definitions:
+  request.ProductRequest:
+    properties:
+      name:
+        type: string
+      price:
+        type: integer
+      product_type:
+        type: string
+    type: object
+  request.UserLoginRequest:
+    properties:
+      password:
+        type: string
+      user_name:
+        type: string
+    type: object
+  request.UserRequest:
+    properties:
+      name:
+        type: string
+      password:
+        type: string
+      product_type:
+        type: string
+      user_name:
+        type: string
+      user_role:
+        type: string
+    type: object
+  response.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  response.ProductResponse:
+    properties:
+      created_at:
+        type: string
+      deleted:
+        type: boolean
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      product_type_id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  response.UserLoginResponse:
+    properties:
+      access_token:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      product_type_id:
+        type: integer
+      refresh_token:
+        type: string
+      user_role_id:
+        type: integer
+    type: object
+  response.UserResponse:
+    properties:
+      created_at:
+        type: string
+      deleted:
+        type: boolean
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      product_type_id:
+        type: integer
+      updated_at:
+        type: string
+      user_name:
+        type: string
+      user_role_id:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: This API services is used for Dealer Platform
+  title: Dealer Api Client
+  version: "1.0"
+paths:
+  /v1/product/:
+    get:
+      consumes:
+      - application/json
+      description: get all product
+      parameters:
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.ProductResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: get all
+      tags:
+      - product
+    post:
+      consumes:
+      - application/json
+      description: add new product
+      parameters:
+      - description: product request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.ProductRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.ProductResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: add new product
+      tags:
+      - product
+  /v1/product/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete product by id
+      parameters:
+      - description: product_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.ProductResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: delete product
+      tags:
+      - product
+    get:
+      consumes:
+      - application/json
+      description: get product by id
+      parameters:
+      - description: product_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.ProductResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: get product
+      tags:
+      - product
+    put:
+      consumes:
+      - application/json
+      description: update product by id
+      parameters:
+      - description: product_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: product request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.ProductRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.ProductResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: update product
+      tags:
+      - product
+  /v1/user/:
+    post:
+      consumes:
+      - application/json
+      description: regist new user
+      parameters:
+      - description: user request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.UserResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: regist new user
+      tags:
+      - user
+  /v1/user/login:
+    post:
+      consumes:
+      - application/json
+      description: regist new user
+      parameters:
+      - description: user request is mandatory
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.UserLoginResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: login
+      tags:
+      - user
+  /v1/user/relog:
+    post:
+      consumes:
+      - application/json
+      description: relog login to generate new token
+      parameters:
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: api-secret
+        in: header
+        name: api-secret
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/response.UserLoginResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/response.ErrorResponse'
+            type: array
+      summary: relog login
+      tags:
+      - user
+swagger: "2.0"
